@@ -1,0 +1,29 @@
+name: запуск ts и lint
+run-name: ${{ github.actor }} запустил проверку на ошибки в ts-файлах и линтер
+on: 
+  push:
+    tags-ignore:
+      - 'rc-0.0.[0-9]+'
+  workflow_call:
+  
+jobs:
+  check-ts-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: копируем репозиторий
+        uses: actions/checkout@v3
+      
+      - name: устанавливаем Node.js 16.6.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.6.0'
+          
+      - name: устанавливаем npm пакеты
+        run: npm ci
+          
+      - name: запускаем ts
+        run: npm run ts
+      
+      - name: запускаем lint
+        run: npm run lint
+      
