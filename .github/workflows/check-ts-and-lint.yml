@@ -2,6 +2,8 @@ name: запуск ts и lint
 run-name: ${{ github.actor }} запустил проверку на ошибки в ts-файлах и линтер
 on: 
   push:
+    tags-ignore:
+      - 'rc-0.0.[0-9]+'
   workflow_call:
   
 jobs:
