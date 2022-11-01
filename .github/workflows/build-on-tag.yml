@@ -1,6 +1,6 @@
 name: сборка релиза
 run-name: ${{ github.actor }} запустил сборку релиза при пуше тега
-on: 
+on:
   push:
     tags:
       - 'rc-0.0.[0-9]+'
@@ -8,7 +8,7 @@ jobs:
   check-ts-and-lint:
     name: запуск ts и lint
     uses: ./.github/workflows/check-ts-and-lint.yml
-  
+
   build:
     name: сборка релиза
     needs: check-ts-and-lint
@@ -16,21 +16,22 @@ jobs:
     steps:
       - name: копируем репозиторий
         uses: actions/checkout@v3
-      
+
       - name: устанавливаем Node.js 16.6.0
         uses: actions/setup-node@v3
         with:
           node-version: '16.6.0'
-          
+
       - name: устанавливаем npm пакеты
         run: npm ci
-      
+
       - name: собираем приложение
         run: npm run build
-        
+
       - name: запускаем тесты
         run: npm run test
-
+      - name: проверка коммитов
+        run: npm run commit
       - name: заполняем релизный тикет
         uses: molodaneporochnacubinka/fill-ticket-action@v1.4
         with:
@@ -52,4 +53,3 @@ jobs:
           x-org-id: 7526988
           ticket-id: HOMEWORKSHRI-147
           comment: Собрали образ с тегом ${{ github.ref_name }}
-
