@@ -32,7 +32,7 @@ jobs:
         run: npm run test
 
       - name: заполняем релизный тикет
-        uses: molodaneporochnacubinka/fill-ticket-action@v1.6
+        uses: molodaneporochnacubinka/fill-ticket-action@v1.7
         with:
           token: ${{ secrets.OAUTH_TRACKER_TOKEN }}
           x-org-id: 7526988
