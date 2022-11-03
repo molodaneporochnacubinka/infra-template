@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: копируем репозиторий
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       
       - name: устанавливаем Node.js 16.6.0
         uses: actions/setup-node@v3
@@ -32,7 +34,7 @@ jobs:
         run: npm run test
 
       - name: заполняем релизный тикет
-        uses: molodaneporochnacubinka/fill-ticket-action@v1.9
+        uses: molodaneporochnacubinka/fill-ticket-action@v1.10
         with:
           token: ${{ secrets.OAUTH_TRACKER_TOKEN }}
           x-org-id: 7526988
